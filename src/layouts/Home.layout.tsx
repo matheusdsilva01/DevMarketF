@@ -1,24 +1,13 @@
 import CardProduct from "@/components/card/card";
 import Header from "@/components/header/header";
-import { Container } from "@mui/material";
+
+import { HomeContainer } from "./home.style";
 
 const HomeLayout = () => {
   return (
     <>
       <Header />
-      <Container
-        sx={{
-          backgroundColor: "#1C1C1C",
-          minHeight: "calc(100vh - 120px)",
-          height: "100%",
-          padding: "",
-          display: "flex",
-          justifyContent: "center",
-          columnGap: "150px",
-          rowGap: "80px",
-          flexWrap: "wrap"
-        }}
-      >
+      <HomeContainer>
         <CardProduct />
         <CardProduct />
         <CardProduct />
@@ -36,7 +25,7 @@ const HomeLayout = () => {
         <CardProduct />
         <CardProduct />
         <CardProduct />
-      </Container>
+      </HomeContainer>
     </>
   );
 };

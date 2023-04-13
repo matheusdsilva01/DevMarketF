@@ -1,9 +1,15 @@
 import { priceFormatter } from "@/util/priceFormatter";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { CardActions, CardContent } from "@mui/material";
+import { CardContent } from "@mui/material";
 
-import { ButtonAction, CardText, CardWrapper, ImgProduct } from "./card.styles";
+import {
+  ButtonAction,
+  CardProductActions,
+  CardText,
+  CardWrapper,
+  ImgProduct
+} from "./card.style";
 
 const CardProduct = () => {
   return (
@@ -31,14 +37,14 @@ const CardProduct = () => {
           {priceFormatter(300.5)}
         </CardText>
       </CardContent>
-      <CardActions sx={{ position: "absolute", right: 0, top: 0 }}>
-        <ButtonAction disableElevation>
-          <BorderColorIcon sx={{ color: "#fff" }} />
+      <CardProductActions disableSpacing>
+        <ButtonAction variant="text" disableRipple>
+          <BorderColorIcon />
         </ButtonAction>
-        <ButtonAction>
-          <DeleteIcon sx={{ color: "#fff" }} />
+        <ButtonAction variant="text" disableRipple>
+          <DeleteIcon />
         </ButtonAction>
-      </CardActions>
+      </CardProductActions>
     </CardWrapper>
   );
 };
