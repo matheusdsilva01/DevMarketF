@@ -1,4 +1,4 @@
-import { violet, cyan, gray, blackA, whiteA } from "@radix-ui/colors";
+import { violetDark, cyan, gray, blackA, whiteA } from "@radix-ui/colors";
 
 const base = {
   "black-01": blackA.blackA1,
@@ -36,18 +36,18 @@ const text = {
 };
 
 const primary = {
-  "primary-01": violet.violet1,
-  "primary-02": violet.violet2,
-  "primary-03": violet.violet3,
-  "primary-04": violet.violet4,
-  "primary-05": violet.violet5,
-  "primary-06": violet.violet6,
-  "primary-07": violet.violet7,
-  "primary-08": violet.violet8,
-  "primary-09": violet.violet9,
-  "primary-10": violet.violet10,
-  "primary-11": violet.violet11,
-  "primary-12": violet.violet12
+  "primary-01": violetDark.violet1,
+  "primary-02": violetDark.violet2,
+  "primary-03": violetDark.violet3,
+  "primary-04": violetDark.violet4,
+  "primary-05": violetDark.violet5,
+  "primary-06": violetDark.violet6,
+  "primary-07": violetDark.violet7,
+  "primary-08": violetDark.violet8,
+  "primary-09": violetDark.violet9,
+  "primary-10": violetDark.violet10,
+  "primary-11": violetDark.violet11,
+  "primary-12": violetDark.violet12
 };
 
 const secondary = {
@@ -65,10 +65,25 @@ const secondary = {
   "secondary-12": cyan.cyan12
 };
 
+const terciary = {
+  "gray-01": gray.gray1,
+  "gray-02": gray.gray2,
+  "gray-03": gray.gray3,
+  "gray-04": gray.gray4,
+  "gray-05": gray.gray5,
+  "gray-06": gray.gray6,
+  "gray-07": gray.gray7,
+  "gray-08": gray.gray8,
+  "gray-09": gray.gray9,
+  "gray-10": gray.gray10,
+  "gray-11": gray.gray11,
+  "gray-12": gray.gray12
+};
 const colors = {
   ...base,
   ...primary,
   ...secondary,
+  ...terciary,
   ...text
 };
 
