@@ -11,13 +11,20 @@ import {
   ImgProduct
 } from "./card.style";
 
-const CardProduct = () => {
+interface CardProductProps {
+  onClick: (value: string | number) => void;
+}
+const CardProduct = ({ onClick }: CardProductProps) => {
+  const dataProduct = {
+    id: 1,
+    title: "Leite de vaca 300ml",
+    picture:
+      "https://freshmania.com.br/_next/image?url=https%3A%2F%2Fstorage.googleapis.com%2Ffm-public-dev%2Fskus_v2%2FLT003%2F1.jpg&w=640&q=75",
+    price: 300.5
+  };
   return (
     <CardWrapper>
-      <ImgProduct
-        component="img"
-        src="https://freshmania.com.br/_next/image?url=https%3A%2F%2Fstorage.googleapis.com%2Ffm-public-dev%2Fskus_v2%2FLT003%2F1.jpg&w=640&q=75"
-      />
+      <ImgProduct component="img" src={dataProduct.picture} />
       <CardContent
         sx={{
           marginTop: "15px",
@@ -31,17 +38,17 @@ const CardProduct = () => {
           sx={{ padding: "0px" }}
           component="h2"
         >
-          Leite de vaca 300ml
+          {dataProduct.title}
         </CardText>
         <CardText fontSize={16} fontWeight={600} component="h3">
-          {priceFormatter(300.5)}
+          {priceFormatter(dataProduct.price)}
         </CardText>
       </CardContent>
       <CardProductActions disableSpacing>
-        <ButtonAction variant="text" disableRipple>
+        <ButtonAction onClick={() => onClick(1)} variant="text" disableRipple>
           <BorderColorIcon />
         </ButtonAction>
-        <ButtonAction variant="text" disableRipple>
+        <ButtonAction onClick={() => onClick(1)} variant="text" disableRipple>
           <DeleteIcon />
         </ButtonAction>
       </CardProductActions>

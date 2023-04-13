@@ -13,6 +13,7 @@ const GlobalStyles = createGlobalStyle`
   ${({ theme }) => css`
     body {
       color: ${theme.colors["text-white"]};
+      background-color: ${theme.colors["gray-02"]};
     }
   `}
 `;
