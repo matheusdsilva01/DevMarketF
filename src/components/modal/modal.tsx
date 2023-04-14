@@ -1,9 +1,17 @@
 import { FormEvent, useContext, useEffect, useState } from "react";
 
 import { ProductContext } from "@/context/product.context";
-import { ContentModal, Input } from "@/layouts/home.style";
 import { ProductType } from "@/types/product";
-import { Box, Button, InputAdornment, Modal, Paper } from "@mui/material";
+import {
+  Box,
+  Button,
+  InputAdornment,
+  Modal,
+  Paper,
+  TextField
+} from "@mui/material";
+
+import theme from "@/styles/theme";
 
 interface ModalProps {
   modalState: boolean;
@@ -29,7 +37,19 @@ const modal = ({ closeModal, modalState, onSubmit, productId }: ModalProps) => {
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
-      <ContentModal
+      <Box
+        sx={{
+          position: "absolute",
+          width: "800px",
+          height: "600px",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          backgroundColor: theme.colors["gray-08"],
+          border: "2px solid #000",
+          boxShadow: "24px",
+          padding: "60px 80px"
+        }}
         component="form"
         onSubmit={(e: FormEvent<HTMLDivElement>) => onSubmit(e, product)}
       >
@@ -80,7 +100,34 @@ const modal = ({ closeModal, modalState, onSubmit, productId }: ModalProps) => {
             </Paper>
           </Box>
           <Box>
-            <Input
+            <TextField
+              sx={{
+                backgroundColor: theme.colors["black-09"],
+                borderRadius: "4px",
+                "& >*": {
+                  color: theme.colors["text-white"]
+                },
+                "& label.Mui-focused": {
+                  color: theme.colors["text-white"]
+                },
+                "& .MuiInput-underline:after": {
+                  borderBottomColor: "white"
+                },
+                "& .MuiOutlinedInput-root": {
+                  "& fieldset": {
+                    borderColor: theme.colors["primary-06"]
+                  },
+                  "&:hover fieldset": {
+                    borderColor: theme.colors["primary-08"]
+                  },
+                  "&.Mui-focused fieldset": {
+                    borderColor: theme.colors["primary-07"]
+                  },
+                  "& .MuiInputAdornment-positionStart p": {
+                    color: theme.colors["text-white"]
+                  }
+                }
+              }}
               fullWidth
               InputLabelProps={{
                 shrink: true
@@ -95,7 +142,34 @@ const modal = ({ closeModal, modalState, onSubmit, productId }: ModalProps) => {
                 }))
               }
             />
-            <Input
+            <TextField
+              sx={{
+                backgroundColor: theme.colors["black-09"],
+                borderRadius: "4px",
+                "& >*": {
+                  color: theme.colors["text-white"]
+                },
+                "& label.Mui-focused": {
+                  color: theme.colors["text-white"]
+                },
+                "& .MuiInput-underline:after": {
+                  borderBottomColor: "white"
+                },
+                "& .MuiOutlinedInput-root": {
+                  "& fieldset": {
+                    borderColor: theme.colors["primary-06"]
+                  },
+                  "&:hover fieldset": {
+                    borderColor: theme.colors["primary-08"]
+                  },
+                  "&.Mui-focused fieldset": {
+                    borderColor: theme.colors["primary-07"]
+                  },
+                  "& .MuiInputAdornment-positionStart p": {
+                    color: theme.colors["text-white"]
+                  }
+                }
+              }}
               fullWidth
               InputProps={{
                 startAdornment: (
@@ -127,7 +201,7 @@ const modal = ({ closeModal, modalState, onSubmit, productId }: ModalProps) => {
         >
           submit
         </Button>
-      </ContentModal>
+      </Box>
     </Modal>
   );
 };

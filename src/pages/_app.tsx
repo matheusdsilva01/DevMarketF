@@ -1,9 +1,8 @@
 import type { AppProps } from "next/app";
 import { Roboto } from "next/font/google";
 
-import { ThemeProvider } from "styled-components";
+import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
 
-import GlobalStyles from "@/styles/global.styles";
 import theme from "@/styles/theme";
 
 const roboto = Roboto({
@@ -12,13 +11,36 @@ const roboto = Roboto({
   subsets: ["latin"]
 });
 
+const materialTheme = createTheme({
+  typography: { allVariants: { color: theme.colors["text-white"] } },
+  components: {
+    MuiInputBase: {
+      styleOverrides: {
+        adornedStart: { color: theme.colors["text-white"] },
+        colorSecondary: theme.colors["text-white"]
+      }
+    },
+    MuiInput: {
+      styleOverrides: { input: { color: theme.colors["text-white"] } }
+    },
+    MuiOutlinedInput: {
+      styleOverrides: { input: { color: theme.colors["text-white"] } }
+    },
+    MuiCssBaseline: {
+      styleOverrides: {
+        body: { backgroundColor: theme.colors["gray-02"] }
+      }
+    }
+  }
+});
+
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={materialTheme}>
       <main className={roboto.className}>
+        <CssBaseline />
         <Component {...pageProps} />
       </main>
-      <GlobalStyles />
     </ThemeProvider>
   );
 }

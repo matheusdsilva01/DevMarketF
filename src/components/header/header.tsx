@@ -1,14 +1,30 @@
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
-
-import { AppBarHeader, ContainerNav } from "./header.style";
+import { AppBar, Container } from "@mui/material";
 
 const Header = () => (
-  <AppBarHeader position="static">
-    <ContainerNav component="nav" maxWidth="xl">
+  <AppBar
+    sx={{
+      display: "flex",
+      justifyContent: "center",
+      backgroundColor: "#061E24",
+      height: "120px"
+    }}
+    position="static"
+  >
+    <Container
+      sx={{
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        fontSize: "32px"
+      }}
+      component="nav"
+      maxWidth="xl"
+    >
       <ShoppingBagIcon sx={{ fontSize: "60px" }} />
       DevMarketF
-    </ContainerNav>
-  </AppBarHeader>
+    </Container>
+  </AppBar>
 );
 
 export default Header;

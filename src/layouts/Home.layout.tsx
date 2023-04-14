@@ -6,9 +6,9 @@ import Modal from "@/components/modal/modal";
 import { ProductContext } from "@/context/product.context";
 import { ProductType } from "@/types/product";
 import AddIcon from "@mui/icons-material/Add";
-import { Button, Popover, Typography } from "@mui/material";
+import { Button, Container, Popover, Typography } from "@mui/material";
 
-import { HomeContainer } from "./home.style";
+import theme from "@/styles/theme";
 
 const HomeLayout = () => {
   const [modalState, setModalState] = useState(false);
@@ -53,7 +53,20 @@ const HomeLayout = () => {
   return (
     <>
       <Header />
-      <HomeContainer maxWidth="xl">
+      <Container
+        sx={{
+          backgroundColor: theme.colors["gray-01"],
+          minHeight: "calc(100vh - 120px)",
+          height: "100%",
+          padding: "50px 0",
+          display: "flex",
+          justifyContent: "center",
+          columnGap: "150px",
+          rowGap: "80px",
+          flexWrap: "wrap"
+        }}
+        maxWidth="xl"
+      >
         {listProducts.map(product => (
           <CardProduct
             key={product.id}
@@ -69,18 +82,24 @@ const HomeLayout = () => {
           open={open}
           anchorEl={anchorEl}
           anchorOrigin={{
-            vertical: "bottom",
+            vertical: 700,
             horizontal: "left"
           }}
           transformOrigin={{
-            vertical: "top",
+            vertical: 700,
             horizontal: "left"
           }}
           onClose={handlePopoverClose}
           disableRestoreFocus
           disableScrollLock
         >
-          <Typography>Adicionar produto</Typography>
+          <Typography
+            sx={{
+              backgroundColor: theme.colors["text-black"]
+            }}
+          >
+            Adicionar produto
+          </Typography>
         </Popover>
         <Button
           disableRipple
@@ -100,7 +119,7 @@ const HomeLayout = () => {
           onSubmit={onSubmit}
           productId={idProduct}
         />
-      </HomeContainer>
+      </Container>
     </>
   );
 };
