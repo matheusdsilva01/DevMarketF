@@ -33,14 +33,15 @@ const modal = ({ closeModal, modalState, onSubmit, productId }: ModalProps) => {
   return (
     <Modal
       open={modalState}
-      onClose={closeModal}
+      sx={{ padding: "20px" }}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
       <Box
         sx={{
           position: "absolute",
-          width: "800px",
+          width: "100%",
+          maxWidth: "800px",
           height: "600px",
           top: "50%",
           left: "50%",
@@ -48,12 +49,25 @@ const modal = ({ closeModal, modalState, onSubmit, productId }: ModalProps) => {
           backgroundColor: theme.colors["gray-08"],
           border: "2px solid #000",
           boxShadow: "24px",
-          padding: "60px 80px"
+          padding: "60px 80px",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-evenly",
+          alignItems: "flex-end"
         }}
         component="form"
         onSubmit={(e: FormEvent<HTMLDivElement>) => onSubmit(e, product)}
       >
-        <Box sx={{ display: "flex" }}>
+        <Box
+          sx={{
+            display: "flex",
+            flex: "auto",
+            "@media (max-width:780px)": {
+              flexDirection: "column",
+              justifyContent: "center"
+            }
+          }}
+        >
           <Box sx={{ width: "100%" }}>
             <Paper
               sx={{
@@ -61,7 +75,11 @@ const modal = ({ closeModal, modalState, onSubmit, productId }: ModalProps) => {
                 height: "324px",
                 display: "flex",
                 alignItems: "center",
-                position: "relative"
+                position: "relative",
+                "@media (max-width:780px)": {
+                  margin: "auto",
+                  marginBottom: "30px"
+                }
               }}
             >
               <img
@@ -80,7 +98,20 @@ const modal = ({ closeModal, modalState, onSubmit, productId }: ModalProps) => {
               <Button
                 variant="contained"
                 component="label"
-                sx={{ position: "absolute", bottom: "2px", right: "2px" }}
+                sx={{
+                  position: "absolute",
+                  bottom: "2px",
+                  right: "2px",
+                  backgroundColor: theme.colors["black-11"],
+                  filter: "alpha(opacity=60)",
+                  color: theme.colors["text-white"],
+                  "&:hover, &:focus": {
+                    backgroundColor: theme.colors["secondary-04"]
+                  },
+                  "&:active": {
+                    backgroundColor: theme.colors["secondary-05"]
+                  }
+                }}
               >
                 Carregar imagem
                 <input
@@ -104,6 +135,7 @@ const modal = ({ closeModal, modalState, onSubmit, productId }: ModalProps) => {
               sx={{
                 backgroundColor: theme.colors["black-09"],
                 borderRadius: "4px",
+                marginBottom: "30px",
                 "& >*": {
                   color: theme.colors["text-white"]
                 },
@@ -177,8 +209,7 @@ const modal = ({ closeModal, modalState, onSubmit, productId }: ModalProps) => {
                 )
               }}
               inputProps={{
-                inputMode: "numeric",
-                pattern: "[0-9]*"
+                inputMode: "numeric"
               }}
               placeholder="Price"
               label="Price"
@@ -196,10 +227,28 @@ const modal = ({ closeModal, modalState, onSubmit, productId }: ModalProps) => {
 
         <Button
           variant="contained"
-          sx={{ flex: "none", display: "block", float: "right" }}
+          disableRipple
+          sx={{
+            flex: "none",
+            display: "block",
+            float: "right",
+            padding: "10px 25px",
+            backgroundColor: theme.colors["secondary-03"],
+            filter: "alpha(opacity=60)",
+            color: theme.colors["text-white"],
+            "&:hover, &:focus": {
+              backgroundColor: theme.colors["secondary-04"]
+            },
+            "&:active": {
+              backgroundColor: theme.colors["secondary-05"]
+            },
+            "@media (max-width:780px)": {
+              marginTop: "30px"
+            }
+          }}
           type="submit"
         >
-          submit
+          {product.id ? "Editar produto" : "Criar produto"}
         </Button>
       </Box>
     </Modal>

@@ -71,7 +71,7 @@ const secondary = {
   "secondary-12": violetDark.violet12
 };
 
-const terciary = {
+const gray = {
   "gray-01": grayDark.gray1,
   "gray-02": grayDark.gray2,
   "gray-03": grayDark.gray3,
@@ -89,7 +89,7 @@ const colors = {
   ...base,
   ...primary,
   ...secondary,
-  ...terciary,
+  ...gray,
   ...text
 };
 

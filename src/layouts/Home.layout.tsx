@@ -82,20 +82,26 @@ const HomeLayout = () => {
           open={open}
           anchorEl={anchorEl}
           anchorOrigin={{
-            vertical: 700,
+            vertical: "center",
             horizontal: "left"
           }}
           transformOrigin={{
-            vertical: 700,
-            horizontal: "left"
+            vertical: "center",
+            horizontal: 145
           }}
           onClose={handlePopoverClose}
           disableRestoreFocus
+          PaperProps={{
+            sx: {
+              backgroundColor: theme.colors["black-12"],
+              borderRadius: "10px"
+            }
+          }}
           disableScrollLock
         >
           <Typography
             sx={{
-              backgroundColor: theme.colors["text-black"]
+              padding: "10px"
             }}
           >
             Adicionar produto
@@ -105,13 +111,30 @@ const HomeLayout = () => {
           disableRipple
           onClick={() => openModal()}
           variant="contained"
-          sx={{ position: "absolute", bottom: 25, right: 25 }}
+          sx={{
+            position: "absolute",
+            bottom: 25,
+            right: 25,
+            width: 64,
+            height: 64,
+            textAlign: "center",
+            borderRadius: "100%",
+            backgroundColor: theme.colors["secondary-06"],
+            filter: "alpha(opacity=60)",
+            color: theme.colors["text-white"],
+            "&:hover, &:focus": {
+              backgroundColor: theme.colors["secondary-07"]
+            },
+            "&:active": {
+              backgroundColor: theme.colors["secondary-08"]
+            }
+          }}
           aria-owns={open ? "mouse-over-popover" : undefined}
           aria-haspopup="true"
           onMouseEnter={handlePopoverOpen}
           onMouseLeave={handlePopoverClose}
         >
-          <AddIcon />
+          <AddIcon sx={{ fontSize: 50 }} />
         </Button>
         <Modal
           closeModal={closeModal}
