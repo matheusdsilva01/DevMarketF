@@ -1,3 +1,6 @@
+import { useContext } from "react";
+
+import { ProductContext } from "@/context/product.context";
 import { ProductType } from "@/types/product";
 import { priceFormatter } from "@/util/priceFormatter";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
@@ -13,9 +16,16 @@ import {
 } from "./card.style";
 
 type CardProductProps = {
-  onClick: (value: string | number) => void;
+  onClick: () => void;
 } & ProductType;
-const CardProduct = ({ onClick, picture, price, title }: CardProductProps) => {
+const CardProduct = ({
+  onClick,
+  picture,
+  price,
+  title,
+  id
+}: CardProductProps) => {
+  const { removeProduct } = useContext(ProductContext);
   return (
     <CardWrapper>
       <ImgProduct component="img" src={picture} />
@@ -39,10 +49,14 @@ const CardProduct = ({ onClick, picture, price, title }: CardProductProps) => {
         </CardText>
       </CardContent>
       <CardProductActions disableSpacing>
-        <ButtonAction onClick={() => onClick(1)} variant="text" disableRipple>
+        <ButtonAction onClick={onClick} variant="text" disableRipple>
           <BorderColorIcon />
         </ButtonAction>
-        <ButtonAction onClick={() => onClick(1)} variant="text" disableRipple>
+        <ButtonAction
+          onClick={() => removeProduct(id)}
+          variant="text"
+          disableRipple
+        >
           <DeleteIcon />
         </ButtonAction>
       </CardProductActions>

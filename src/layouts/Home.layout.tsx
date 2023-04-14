@@ -2,31 +2,22 @@ import { FormEvent, MouseEvent, useContext, useState } from "react";
 
 import CardProduct from "@/components/card/card";
 import Header from "@/components/header/header";
+import Modal from "@/components/modal/modal";
 import { ProductContext } from "@/context/product.context";
 import { ProductType } from "@/types/product";
 import AddIcon from "@mui/icons-material/Add";
-import {
-  Box,
-  Button,
-  InputAdornment,
-  Modal,
-  Paper,
-  Popover,
-  Typography
-} from "@mui/material";
+import { Button, Popover, Typography } from "@mui/material";
 
-import { ContentModal, HomeContainer, Input } from "./home.style";
+import { HomeContainer } from "./home.style";
 
 const HomeLayout = () => {
   const [modalState, setModalState] = useState(false);
-  const [idProduct, setIdProduct] = useState<string | number>();
-  const { listProducts, setListProducts } = useContext(ProductContext);
-  const [product, setProduct] = useState<ProductType>({} as ProductType);
-  console.log(listProducts);
+  const [idProduct, setIdProduct] = useState<number>();
+  const { listProducts, addProduct, editProduct } = useContext(ProductContext);
 
-  const openModal = (id?: number | string) => {
-    setModalState(true);
+  const openModal = (id?: number) => {
     setIdProduct(id);
+    setModalState(true);
   };
 
   const closeModal = () => {
@@ -34,10 +25,14 @@ const HomeLayout = () => {
     setIdProduct(undefined);
   };
 
-  const onSubmit = (e: FormEvent<HTMLDivElement>) => {
+  const onSubmit = (e: FormEvent<HTMLDivElement>, product: ProductType) => {
     e.preventDefault();
     if (product) {
-      setListProducts(oldValue => [...oldValue, product]);
+      if (product.id) {
+        editProduct(product);
+      } else {
+        addProduct(product);
+      }
     }
     closeModal();
   };
@@ -54,12 +49,17 @@ const HomeLayout = () => {
   };
 
   const open = Boolean(anchorEl);
+
   return (
     <>
       <Header />
       <HomeContainer maxWidth="xl">
-        {listProducts.map((product, i) => (
-          <CardProduct key={i} onClick={openModal} {...product} />
+        {listProducts.map(product => (
+          <CardProduct
+            key={product.id}
+            onClick={() => openModal(product.id)}
+            {...product}
+          />
         ))}
         <Popover
           id="mouse-over-popover"
@@ -95,111 +95,11 @@ const HomeLayout = () => {
           <AddIcon />
         </Button>
         <Modal
-          open={modalState}
-          onClose={closeModal}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <ContentModal
-            component="form"
-            onSubmit={(e: FormEvent<HTMLDivElement>) => onSubmit(e)}
-          >
-            <Box sx={{ display: "flex" }}>
-              <Box sx={{ width: "100%" }}>
-                <Paper
-                  sx={{
-                    width: "324px",
-                    height: "324px",
-                    display: "flex",
-                    alignItems: "center",
-                    position: "relative"
-                  }}
-                >
-                  <img
-                    src={product?.picture || "/imgError.svg"}
-                    onError={({ currentTarget }) => {
-                      currentTarget.onerror = null;
-                      currentTarget.src = "/imgError.svg";
-                    }}
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      objectFit: "cover"
-                    }}
-                  />
-
-                  <Button
-                    variant="contained"
-                    component="label"
-                    sx={{ position: "absolute", bottom: "2px", right: "2px" }}
-                  >
-                    Carregar imagem
-                    <input
-                      onChange={({ target: { files } }) => {
-                        if (files) {
-                          setProduct((oldState: any) => ({
-                            ...oldState,
-                            picture: URL.createObjectURL(files[0])
-                          }));
-                        }
-                      }}
-                      accept="image/*"
-                      type="file"
-                      hidden
-                    />
-                  </Button>
-                </Paper>
-              </Box>
-              <Box>
-                <Input
-                  fullWidth
-                  InputLabelProps={{
-                    shrink: true
-                  }}
-                  placeholder="Title"
-                  label="Title"
-                  value={product?.title || ""}
-                  onChange={e =>
-                    setProduct((oldValue: any) => ({
-                      ...oldValue,
-                      title: e.target.value
-                    }))
-                  }
-                />
-                <Input
-                  fullWidth
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">R$</InputAdornment>
-                    )
-                  }}
-                  inputProps={{
-                    inputMode: "numeric",
-                    pattern: "[0-9]*"
-                  }}
-                  placeholder="Price"
-                  label="Price"
-                  type="number"
-                  value={product?.price || ""}
-                  onChange={e =>
-                    setProduct((oldValue: any) => ({
-                      ...oldValue,
-                      price: Number(e.target.value)
-                    }))
-                  }
-                />
-              </Box>
-            </Box>
-
-            <Button
-              variant="contained"
-              sx={{ flex: "none", display: "block", float: "right" }}
-              type="submit"
-            >
-              submit
-            </Button>
-          </ContentModal>
-        </Modal>
+          closeModal={closeModal}
+          modalState={modalState}
+          onSubmit={onSubmit}
+          productId={idProduct}
+        />
       </HomeContainer>
     </>
   );
