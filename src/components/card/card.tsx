@@ -1,3 +1,4 @@
+import { ProductType } from "@/types/product";
 import { priceFormatter } from "@/util/priceFormatter";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -11,20 +12,13 @@ import {
   ImgProduct
 } from "./card.style";
 
-interface CardProductProps {
+type CardProductProps = {
   onClick: (value: string | number) => void;
-}
-const CardProduct = ({ onClick }: CardProductProps) => {
-  const dataProduct = {
-    id: 1,
-    title: "Leite de vaca 300ml",
-    picture:
-      "https://freshmania.com.br/_next/image?url=https%3A%2F%2Fstorage.googleapis.com%2Ffm-public-dev%2Fskus_v2%2FLT003%2F1.jpg&w=640&q=75",
-    price: 300.5
-  };
+} & ProductType;
+const CardProduct = ({ onClick, picture, price, title }: CardProductProps) => {
   return (
     <CardWrapper>
-      <ImgProduct component="img" src={dataProduct.picture} />
+      <ImgProduct component="img" src={picture} />
       <CardContent
         sx={{
           marginTop: "15px",
@@ -38,10 +32,10 @@ const CardProduct = ({ onClick }: CardProductProps) => {
           sx={{ padding: "0px" }}
           component="h2"
         >
-          {dataProduct.title}
+          {title}
         </CardText>
         <CardText fontSize={16} fontWeight={600} component="h3">
-          {priceFormatter(dataProduct.price)}
+          {priceFormatter(price)}
         </CardText>
       </CardContent>
       <CardProductActions disableSpacing>

@@ -1,70 +1,98 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, MouseEvent, useContext, useState } from "react";
 
 import CardProduct from "@/components/card/card";
 import Header from "@/components/header/header";
+import { ProductContext } from "@/context/product.context";
+import { ProductType } from "@/types/product";
+import AddIcon from "@mui/icons-material/Add";
 import {
   Box,
   Button,
-  Container,
   InputAdornment,
   Modal,
-  Paper
+  Paper,
+  Popover,
+  Typography
 } from "@mui/material";
 
 import { ContentModal, HomeContainer, Input } from "./home.style";
 
-type productType = {
-  title: string;
-  price: number;
-  picture: string;
-};
-
 const HomeLayout = () => {
   const [modalState, setModalState] = useState(false);
   const [idProduct, setIdProduct] = useState<string | number>();
-  const [product, setProduct] = useState<productType | any>();
+  const { listProducts, setListProducts } = useContext(ProductContext);
+  const [product, setProduct] = useState<ProductType>({} as ProductType);
+  console.log(listProducts);
 
   const openModal = (id?: number | string) => {
     setModalState(true);
     setIdProduct(id);
   };
+
   const closeModal = () => {
     setModalState(false);
     setIdProduct(undefined);
   };
+
   const onSubmit = (e: FormEvent<HTMLDivElement>) => {
     e.preventDefault();
-    console.log(product);
+    if (product) {
+      setListProducts(oldValue => [...oldValue, product]);
+    }
     closeModal();
   };
+
+  // popover
+  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
+
+  const handlePopoverOpen = (event: MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handlePopoverClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
   return (
     <>
       <Header />
       <HomeContainer maxWidth="xl">
-        <CardProduct onClick={openModal} />
-        <CardProduct onClick={openModal} />
-        <CardProduct onClick={openModal} />
-        <CardProduct onClick={openModal} />
-        <CardProduct onClick={openModal} />
-        <CardProduct onClick={openModal} />
-        <CardProduct onClick={openModal} />
-        <CardProduct onClick={openModal} />
-        <CardProduct onClick={openModal} />
-        <CardProduct onClick={openModal} />
-        <CardProduct onClick={openModal} />
-        <CardProduct onClick={openModal} />
-        <CardProduct onClick={openModal} />
-        <CardProduct onClick={openModal} />
-        <CardProduct onClick={openModal} />
-        <CardProduct onClick={openModal} />
-        <CardProduct onClick={openModal} />
+        {listProducts.map((product, i) => (
+          <CardProduct key={i} onClick={openModal} {...product} />
+        ))}
+        <Popover
+          id="mouse-over-popover"
+          sx={{
+            pointerEvents: "none"
+          }}
+          open={open}
+          anchorEl={anchorEl}
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "left"
+          }}
+          transformOrigin={{
+            vertical: "top",
+            horizontal: "left"
+          }}
+          onClose={handlePopoverClose}
+          disableRestoreFocus
+          disableScrollLock
+        >
+          <Typography>Adicionar produto</Typography>
+        </Popover>
         <Button
           disableRipple
           onClick={() => openModal()}
           variant="contained"
           sx={{ position: "absolute", bottom: 25, right: 25 }}
+          aria-owns={open ? "mouse-over-popover" : undefined}
+          aria-haspopup="true"
+          onMouseEnter={handlePopoverOpen}
+          onMouseLeave={handlePopoverClose}
         >
-          IconAdd
+          <AddIcon />
         </Button>
         <Modal
           open={modalState}
@@ -99,6 +127,7 @@ const HomeLayout = () => {
                       objectFit: "cover"
                     }}
                   />
+
                   <Button
                     variant="contained"
                     component="label"

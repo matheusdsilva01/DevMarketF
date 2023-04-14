@@ -6,6 +6,7 @@ import Document, {
   DocumentContext
 } from "next/document";
 
+import { getInitColorSchemeScript } from "@mui/material";
 import { ServerStyleSheet } from "styled-components";
 
 export default class MyDocument extends Document {
@@ -54,6 +55,7 @@ export default class MyDocument extends Document {
           />
         </Head>
         <body>
+          {getInitColorSchemeScript()}
           <Main />
           <NextScript />
         </body>
