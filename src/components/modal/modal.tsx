@@ -53,7 +53,13 @@ const modal = ({ closeModal, modalState, onSubmit, productId }: ModalProps) => {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-evenly",
-          alignItems: "flex-end"
+          alignItems: "flex-end",
+          "@media (max-width:780px)": {
+            flexDirection: "column",
+            justifyContent: "center",
+            padding: "60px 20px",
+            alignItems: "center"
+          }
         }}
         component="form"
         onSubmit={(e: FormEvent<HTMLDivElement>) => onSubmit(e, product)}
@@ -71,8 +77,9 @@ const modal = ({ closeModal, modalState, onSubmit, productId }: ModalProps) => {
           <Box sx={{ width: "100%" }}>
             <Paper
               sx={{
-                width: "324px",
-                height: "324px",
+                width: "100%",
+                marginRight: "60px",
+                maxWidth: "324px",
                 display: "flex",
                 alignItems: "center",
                 position: "relative",
@@ -90,8 +97,8 @@ const modal = ({ closeModal, modalState, onSubmit, productId }: ModalProps) => {
                 }}
                 style={{
                   width: "100%",
-                  height: "100%",
-                  objectFit: "cover"
+                  objectFit: "cover",
+                  aspectRatio: "1/1"
                 }}
               />
 
@@ -209,7 +216,8 @@ const modal = ({ closeModal, modalState, onSubmit, productId }: ModalProps) => {
                 )
               }}
               inputProps={{
-                inputMode: "numeric"
+                inputMode: "numeric",
+                step: "0.01"
               }}
               placeholder="Price"
               label="Price"
@@ -229,9 +237,11 @@ const modal = ({ closeModal, modalState, onSubmit, productId }: ModalProps) => {
           variant="contained"
           disableRipple
           sx={{
+            width: "100%",
+            float: "right",
+            maxWidth: "173px",
             flex: "none",
             display: "block",
-            float: "right",
             padding: "10px 25px",
             backgroundColor: theme.colors["secondary-03"],
             filter: "alpha(opacity=60)",

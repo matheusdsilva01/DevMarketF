@@ -112,7 +112,7 @@ const HomeLayout = () => {
           onClick={() => openModal()}
           variant="contained"
           sx={{
-            position: "absolute",
+            position: "fixed",
             bottom: 25,
             right: 25,
             width: 64,
