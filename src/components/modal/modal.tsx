@@ -92,10 +92,10 @@ const modal = ({ closeModal, modalState, onSubmit, productId }: ModalProps) => {
               }}
             >
               <img
-                src={product?.picture || "/imgError.svg"}
+                src={product?.picture || "/img-search.svg"}
                 onError={({ currentTarget }) => {
                   currentTarget.onerror = null;
-                  currentTarget.src = "/imgError.svg";
+                  currentTarget.src = "/img-search.svg";
                 }}
                 style={{
                   width: "100%",
