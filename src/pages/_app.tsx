@@ -1,9 +1,12 @@
 import type { AppProps } from "next/app";
 import { Roboto } from "next/font/google";
+import { ToastContainer } from "react-toastify";
 
 import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
 
 import theme from "@/styles/theme";
+
+import "react-toastify/dist/ReactToastify.css";
 
 const roboto = Roboto({
   weight: ["300", "400", "500", "700"],
@@ -40,6 +43,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <main className={roboto.className}>
         <CssBaseline />
         <Component {...pageProps} />
+        <ToastContainer />
       </main>
     </ThemeProvider>
   );

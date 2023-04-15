@@ -1,4 +1,5 @@
 import { FormEvent, MouseEvent, useContext, useState } from "react";
+import { toast } from "react-toastify";
 
 import CardProduct from "@/components/card/card";
 import Header from "@/components/header/header";
@@ -26,15 +27,26 @@ const HomeLayout = () => {
   };
 
   const onSubmit = (e: FormEvent<HTMLDivElement>, product: ProductType) => {
+    console.log(product.picture);
     e.preventDefault();
-    if (product) {
+
+    if (!product.picture || !product.price || product.title === "") {
+      toast.error("Preencha todos os campos!!!");
+    } else {
       if (product.id) {
+        toast.success("Produto editado com sucesso!!!");
         editProduct(product);
       } else {
+        toast.success("Produto criado com sucesso!!!");
         addProduct(product);
       }
+      closeModal();
+      resetAllValuesInput();
     }
-    closeModal();
+  };
+
+  const resetAllValuesInput = () => {
+    setIdProduct(0);
   };
 
   // popover

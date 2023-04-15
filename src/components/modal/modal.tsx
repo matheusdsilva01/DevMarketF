@@ -6,7 +6,7 @@ import {
   Box,
   Button,
   InputAdornment,
-  Modal,
+  Modal as ModalWrapper,
   Paper,
   TextField
 } from "@mui/material";
@@ -31,18 +31,19 @@ const modal = ({ closeModal, modalState, onSubmit, productId }: ModalProps) => {
   }, [productId]);
 
   return (
-    <Modal
+    <ModalWrapper
+      onClose={closeModal}
       open={modalState}
-      sx={{ padding: "20px" }}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
       <Box
         sx={{
           position: "absolute",
-          width: "100%",
+          width: "90%",
           maxWidth: "800px",
-          height: "600px",
+          height: "90%",
+          maxHeight: "600px",
           top: "50%",
           left: "50%",
           transform: "translate(-50%, -50%)",
@@ -84,6 +85,7 @@ const modal = ({ closeModal, modalState, onSubmit, productId }: ModalProps) => {
                 alignItems: "center",
                 position: "relative",
                 "@media (max-width:780px)": {
+                  width: "50%",
                   margin: "auto",
                   marginBottom: "30px"
                 }
@@ -117,6 +119,9 @@ const modal = ({ closeModal, modalState, onSubmit, productId }: ModalProps) => {
                   },
                   "&:active": {
                     backgroundColor: theme.colors["secondary-05"]
+                  },
+                  "@media (max-width:780px)": {
+                    fontSize: "10px"
                   }
                 }}
               >
@@ -246,6 +251,7 @@ const modal = ({ closeModal, modalState, onSubmit, productId }: ModalProps) => {
             backgroundColor: theme.colors["secondary-03"],
             filter: "alpha(opacity=60)",
             color: theme.colors["text-white"],
+            whiteSpace: "nowrap",
             "&:hover, &:focus": {
               backgroundColor: theme.colors["secondary-04"]
             },
@@ -261,7 +267,7 @@ const modal = ({ closeModal, modalState, onSubmit, productId }: ModalProps) => {
           {product.id ? "Editar produto" : "Criar produto"}
         </Button>
       </Box>
-    </Modal>
+    </ModalWrapper>
   );
 };
 

@@ -1,10 +1,5 @@
-import {
-  Dispatch,
-  ReactNode,
-  SetStateAction,
-  createContext,
-  useState
-} from "react";
+import { ReactNode, createContext, useState } from "react";
+import { toast } from "react-toastify";
 
 import { ProductType } from "@/types/product";
 
@@ -61,6 +56,7 @@ const ProductContextProvider = ({ children }: ProductContextProviderProps) => {
   };
 
   const removeProduct = (productId: number) => {
+    toast.info("Produto excluido!!!");
     setListProducts(oldValue => oldValue.filter(el => el.id !== productId));
   };
 
