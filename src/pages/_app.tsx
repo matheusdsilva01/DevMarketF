@@ -1,5 +1,6 @@
 import type { AppProps } from "next/app";
 import { Roboto } from "next/font/google";
+import Head from "next/head";
 import { ToastContainer } from "react-toastify";
 
 import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
@@ -39,12 +40,17 @@ const materialTheme = createTheme({
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <ThemeProvider theme={materialTheme}>
-      <main className={roboto.className}>
-        <CssBaseline />
-        <Component {...pageProps} />
-        <ToastContainer />
-      </main>
-    </ThemeProvider>
+    <>
+      <Head>
+        <title>DevMarketF</title>
+      </Head>
+      <ThemeProvider theme={materialTheme}>
+        <main className={roboto.className}>
+          <CssBaseline />
+          <Component {...pageProps} />
+          <ToastContainer />
+        </main>
+      </ThemeProvider>
+    </>
   );
 }

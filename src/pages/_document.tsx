@@ -6,7 +6,9 @@ export default class MyDocument extends Document {
   render() {
     return (
       <Html>
-        <Head></Head>
+        <Head>
+          <link rel="shortcut icon" href="/favicon.svg" type="image/x-icon" />
+        </Head>
         <body>
           {getInitColorSchemeScript()}
           <Main />
