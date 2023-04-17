@@ -7,10 +7,15 @@ import Modal from "@/components/modal/modal";
 import { ProductContext } from "@/context/product.context";
 import { ProductType } from "@/types/product";
 import AddIcon from "@mui/icons-material/Add";
-import { Button, Container, Popover, Typography } from "@mui/material";
+import { Popover } from "@mui/material";
 
 import theme from "@/styles/theme";
 
+import { ButtonAddProduct, HomeContainer, TextPopover } from "./home.style";
+const PaperStylePopover = {
+  backgroundColor: theme.colors["black-12"],
+  borderRadius: "5px"
+};
 const HomeLayout = () => {
   const [modalState, setModalState] = useState(false);
   const [idProduct, setIdProduct] = useState<number>();
@@ -65,20 +70,7 @@ const HomeLayout = () => {
   return (
     <>
       <Header />
-      <Container
-        sx={{
-          backgroundColor: theme.colors["gray-01"],
-          minHeight: "calc(100vh - 120px)",
-          height: "100%",
-          padding: "50px 0",
-          display: "flex",
-          justifyContent: "center",
-          columnGap: "150px",
-          rowGap: "80px",
-          flexWrap: "wrap"
-        }}
-        maxWidth="xl"
-      >
+      <HomeContainer maxWidth="xl">
         {listProducts.map(product => (
           <CardProduct
             key={product.id}
@@ -104,57 +96,30 @@ const HomeLayout = () => {
           onClose={handlePopoverClose}
           disableRestoreFocus
           PaperProps={{
-            sx: {
-              backgroundColor: theme.colors["black-12"],
-              borderRadius: "10px"
-            }
+            sx: PaperStylePopover
           }}
           disableScrollLock
         >
-          <Typography
-            sx={{
-              padding: "10px"
-            }}
-          >
-            Adicionar produto
-          </Typography>
+          <TextPopover>Adicionar produto</TextPopover>
         </Popover>
-        <Button
+        <ButtonAddProduct
           disableRipple
           onClick={() => openModal()}
           variant="contained"
-          sx={{
-            position: "fixed",
-            bottom: 25,
-            right: 25,
-            width: 64,
-            height: 64,
-            textAlign: "center",
-            borderRadius: "100%",
-            backgroundColor: theme.colors["secondary-06"],
-            filter: "alpha(opacity=60)",
-            color: theme.colors["text-white"],
-            "&:hover, &:focus": {
-              backgroundColor: theme.colors["secondary-07"]
-            },
-            "&:active": {
-              backgroundColor: theme.colors["secondary-08"]
-            }
-          }}
           aria-owns={open ? "mouse-over-popover" : undefined}
           aria-haspopup="true"
           onMouseEnter={handlePopoverOpen}
           onMouseLeave={handlePopoverClose}
         >
           <AddIcon sx={{ fontSize: 50 }} />
-        </Button>
+        </ButtonAddProduct>
         <Modal
           closeModal={closeModal}
           modalState={modalState}
           onSubmit={onSubmit}
           productId={idProduct}
         />
-      </Container>
+      </HomeContainer>
     </>
   );
 };

@@ -3,16 +3,18 @@ import { FormEvent, useContext, useEffect, useState } from "react";
 import { ProductContext } from "@/context/product.context";
 import { ProductType } from "@/types/product";
 import CancelIcon from "@mui/icons-material/Cancel";
-import {
-  Box,
-  Button,
-  InputAdornment,
-  Modal as ModalWrapper,
-  Paper,
-  TextField
-} from "@mui/material";
+import { Box, InputAdornment, Modal as ModalWrapper } from "@mui/material";
 
-import theme from "@/styles/theme";
+import {
+  BoxImg,
+  ButtonSearchImage,
+  ButtonSubmitModal,
+  ContentBoxModal,
+  IconCloseModal,
+  ImagePreviewProduct,
+  InputModal,
+  WrapperImage
+} from "./modal.style";
 
 interface ModalProps {
   modalState: boolean;
@@ -38,94 +40,23 @@ const modal = ({ closeModal, modalState, onSubmit, productId }: ModalProps) => {
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
-      <Box
-        sx={{
-          position: "absolute",
-          width: "90%",
-          maxWidth: "800px",
-          height: "90%",
-          maxHeight: "600px",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          backgroundColor: theme.colors["gray-08"],
-          border: "2px solid #000",
-          boxShadow: "24px",
-          padding: "60px 80px",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-evenly",
-          alignItems: "flex-end",
-          "@media (max-width:780px)": {
-            flexDirection: "column",
-            justifyContent: "center",
-            padding: "60px 20px",
-            alignItems: "center"
-          }
-        }}
+      <ContentBoxModal
         component="form"
         onSubmit={(e: FormEvent<HTMLDivElement>) => onSubmit(e, product)}
       >
-        <Box
-          sx={{
-            display: "flex",
-            flex: "auto",
-            "@media (max-width:780px)": {
-              flexDirection: "column",
-              justifyContent: "center"
-            }
-          }}
-        >
+        <BoxImg>
           <Box sx={{ width: "100%" }}>
-            <Paper
-              sx={{
-                width: "100%",
-                marginRight: "60px",
-                maxWidth: "324px",
-                display: "flex",
-                alignItems: "center",
-                position: "relative",
-                "@media (max-width:780px)": {
-                  width: "50%",
-                  margin: "auto",
-                  marginBottom: "30px"
-                }
-              }}
-            >
-              <img
+            <WrapperImage>
+              <ImagePreviewProduct
+                component="img"
                 src={product?.picture || "/img-search.svg"}
                 onError={({ currentTarget }) => {
                   currentTarget.onerror = null;
                   currentTarget.src = "/img-search.svg";
                 }}
-                style={{
-                  width: "100%",
-                  objectFit: "cover",
-                  aspectRatio: "1/1"
-                }}
               />
 
-              <Button
-                variant="contained"
-                component="label"
-                sx={{
-                  position: "absolute",
-                  bottom: "2px",
-                  right: "2px",
-                  backgroundColor: theme.colors["black-11"],
-                  filter: "alpha(opacity=60)",
-                  color: theme.colors["text-white"],
-                  "&:hover, &:focus": {
-                    backgroundColor: theme.colors["secondary-04"]
-                  },
-                  "&:active": {
-                    backgroundColor: theme.colors["secondary-05"]
-                  },
-                  "@media (max-width:780px)": {
-                    fontSize: "10px"
-                  }
-                }}
-              >
+              <ButtonSearchImage variant="contained" component="label">
                 Carregar imagem
                 <input
                   onChange={({ target: { files } }) => {
@@ -140,38 +71,13 @@ const modal = ({ closeModal, modalState, onSubmit, productId }: ModalProps) => {
                   type="file"
                   hidden
                 />
-              </Button>
-            </Paper>
+              </ButtonSearchImage>
+            </WrapperImage>
           </Box>
           <Box>
-            <TextField
+            <InputModal
               sx={{
-                backgroundColor: theme.colors["black-09"],
-                borderRadius: "4px",
-                marginBottom: "30px",
-                "& >*": {
-                  color: theme.colors["text-white"]
-                },
-                "& label.Mui-focused": {
-                  color: theme.colors["text-white"]
-                },
-                "& .MuiInput-underline:after": {
-                  borderBottomColor: "white"
-                },
-                "& .MuiOutlinedInput-root": {
-                  "& fieldset": {
-                    borderColor: theme.colors["primary-06"]
-                  },
-                  "&:hover fieldset": {
-                    borderColor: theme.colors["primary-08"]
-                  },
-                  "&.Mui-focused fieldset": {
-                    borderColor: theme.colors["primary-07"]
-                  },
-                  "& .MuiInputAdornment-positionStart p": {
-                    color: theme.colors["text-white"]
-                  }
-                }
+                marginBottom: "30px"
               }}
               fullWidth
               InputLabelProps={{
@@ -187,34 +93,7 @@ const modal = ({ closeModal, modalState, onSubmit, productId }: ModalProps) => {
                 }))
               }
             />
-            <TextField
-              sx={{
-                backgroundColor: theme.colors["black-09"],
-                borderRadius: "4px",
-                "& >*": {
-                  color: theme.colors["text-white"]
-                },
-                "& label.Mui-focused": {
-                  color: theme.colors["text-white"]
-                },
-                "& .MuiInput-underline:after": {
-                  borderBottomColor: "white"
-                },
-                "& .MuiOutlinedInput-root": {
-                  "& fieldset": {
-                    borderColor: theme.colors["primary-06"]
-                  },
-                  "&:hover fieldset": {
-                    borderColor: theme.colors["primary-08"]
-                  },
-                  "&.Mui-focused fieldset": {
-                    borderColor: theme.colors["primary-07"]
-                  },
-                  "& .MuiInputAdornment-positionStart p": {
-                    color: theme.colors["text-white"]
-                  }
-                }
-              }}
+            <InputModal
               fullWidth
               InputProps={{
                 startAdornment: (
@@ -237,42 +116,13 @@ const modal = ({ closeModal, modalState, onSubmit, productId }: ModalProps) => {
               }
             />
           </Box>
-        </Box>
+        </BoxImg>
 
-        <Button
-          variant="contained"
-          disableRipple
-          sx={{
-            width: "100%",
-            float: "right",
-            maxWidth: "173px",
-            flex: "none",
-            display: "block",
-            padding: "10px 25px",
-            backgroundColor: theme.colors["secondary-03"],
-            filter: "alpha(opacity=60)",
-            color: theme.colors["text-white"],
-            whiteSpace: "nowrap",
-            "&:hover, &:focus": {
-              backgroundColor: theme.colors["secondary-04"]
-            },
-            "&:active": {
-              backgroundColor: theme.colors["secondary-05"]
-            },
-            "@media (max-width:780px)": {
-              marginTop: "30px"
-            }
-          }}
-          type="submit"
-        >
+        <ButtonSubmitModal variant="contained" disableRipple type="submit">
           {product.id ? "Editar produto" : "Criar produto"}
-        </Button>
-        <CancelIcon
-          onClick={closeModal}
-          fontSize="large"
-          sx={{ position: "absolute", top: 10, right: 10, cursor: "pointer" }}
-        />
-      </Box>
+        </ButtonSubmitModal>
+        <IconCloseModal onClick={closeModal} fontSize="large" />
+      </ContentBoxModal>
     </ModalWrapper>
   );
 };
