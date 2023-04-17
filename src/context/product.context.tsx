@@ -52,7 +52,7 @@ const ProductContextProvider = ({ children }: ProductContextProviderProps) => {
 
   const addProduct = (product: ProductType) => {
     const newProduct = { ...product, id: listProducts.length + 1 };
-    setListProducts(oldValue => [...oldValue, newProduct]);
+    setListProducts(oldValue => [newProduct, ...oldValue]);
   };
 
   const removeProduct = (productId: number) => {

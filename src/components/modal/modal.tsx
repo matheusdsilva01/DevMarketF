@@ -2,6 +2,7 @@ import { FormEvent, useContext, useEffect, useState } from "react";
 
 import { ProductContext } from "@/context/product.context";
 import { ProductType } from "@/types/product";
+import CancelIcon from "@mui/icons-material/Cancel";
 import {
   Box,
   Button,
@@ -176,8 +177,8 @@ const modal = ({ closeModal, modalState, onSubmit, productId }: ModalProps) => {
               InputLabelProps={{
                 shrink: true
               }}
-              placeholder="Title"
-              label="Title"
+              placeholder="Titulo"
+              label="Titulo"
               value={product?.title || ""}
               onChange={e =>
                 setProduct((oldValue: any) => ({
@@ -224,8 +225,8 @@ const modal = ({ closeModal, modalState, onSubmit, productId }: ModalProps) => {
                 inputMode: "numeric",
                 step: "0.01"
               }}
-              placeholder="Price"
-              label="Price"
+              placeholder="Preço"
+              label="Preço"
               type="number"
               value={product?.price || ""}
               onChange={e =>
@@ -266,6 +267,11 @@ const modal = ({ closeModal, modalState, onSubmit, productId }: ModalProps) => {
         >
           {product.id ? "Editar produto" : "Criar produto"}
         </Button>
+        <CancelIcon
+          onClick={closeModal}
+          fontSize="large"
+          sx={{ position: "absolute", top: 10, right: 10, cursor: "pointer" }}
+        />
       </Box>
     </ModalWrapper>
   );
