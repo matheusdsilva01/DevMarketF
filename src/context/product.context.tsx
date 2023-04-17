@@ -26,24 +26,30 @@ const products = [
   },
   {
     id: 2,
-    title: "Leite de vaca 300ml",
+    title: "Ovo Caipira Grande 30 unidades",
     picture:
-      "https://freshmania.com.br/_next/image?url=https%3A%2F%2Fstorage.googleapis.com%2Ffm-public-dev%2Fskus_v2%2FLT003%2F1.jpg&w=640&q=75",
-    price: 300.5
+      "https://freshmania.com.br/_next/image?url=https%3A%2F%2Fstorage.googleapis.com%2Ffm-public-dev%2Fskus_v2%2FNG002%2F1.jpg&w=640&q=75",
+    price: 37.4
   },
   {
     id: 3,
-    title: "Leite de vaca 300ml",
+    title: "Leite integral 1L",
     picture:
-      "https://freshmania.com.br/_next/image?url=https%3A%2F%2Fstorage.googleapis.com%2Ffm-public-dev%2Fskus_v2%2FLT003%2F1.jpg&w=640&q=75",
-    price: 300.5
+      "https://freshmania.com.br/_next/image?url=https%3A%2F%2Fstorage.googleapis.com%2Ffm-public-dev%2Fimg_tmp%2F3192bab6529b4435bd60f071ed90a448_f0fad34475b3454e8a2e0ecdd2a1c519.jpg&w=640&q=75",
+    price: 9.86
   },
   {
     id: 4,
-    title: "Leite de vaca 300ml",
+    title: "Leite fermentado 1L",
     picture:
-      "https://freshmania.com.br/_next/image?url=https%3A%2F%2Fstorage.googleapis.com%2Ffm-public-dev%2Fskus_v2%2FLT003%2F1.jpg&w=640&q=75",
-    price: 300.5
+      "https://freshmania.com.br/_next/image?url=https%3A%2F%2Fstorage.googleapis.com%2Ffm-public-dev%2Fskus_v2%2FLT004%2F1.jpg&w=640&q=75",
+    price: 18.70
+  },
+  {
+    id: 5,
+    title: "Café com leite 500ml",
+    picture: "https://freshmania.com.br/_next/image?url=https%3A%2F%2Fstorage.googleapis.com%2Ffm-public-dev%2Fskus_v2%2FLT006%2F1.jpg&w=640&q=75",
+    price: 18.90
   }
 ];
 
