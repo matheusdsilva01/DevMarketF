@@ -15,21 +15,21 @@ DevMarketf is an e-commerce project, made for the FrontEnd Challenge of the comp
 git clone https://github.com/matheusdsilva01/devmarketf.git
 ```
 
-1. Install the dependencies:
+2. Install the dependencies:
 
 ```bash
 cd devmarketf
 npm install
 ```
 
-1. Start the frontend server:
+3. Start the frontend server:
 
 ```powershell
 npm run dev
 
 ```
 
-1. Access the application at **`http://localhost:3000`**.
+4. Access the application at **`http://localhost:3000`**.
 
 ## **Contribution**
 
