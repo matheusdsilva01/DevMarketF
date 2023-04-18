@@ -13,43 +13,44 @@ type ProductContextType = {
 type ProductContextProviderProps = {
   children: ReactNode;
 };
-
 export const ProductContext = createContext({} as ProductContextType);
+let id = 0;
 
 const products = [
   {
-    id: 1,
+    id: id++,
     title: "Leite de vaca 300ml",
     picture:
       "https://freshmania.com.br/_next/image?url=https%3A%2F%2Fstorage.googleapis.com%2Ffm-public-dev%2Fskus_v2%2FLT003%2F1.jpg&w=640&q=75",
     price: 300.5
   },
   {
-    id: 2,
+    id: id++,
     title: "Ovo Caipira Grande 30 unidades",
     picture:
       "https://freshmania.com.br/_next/image?url=https%3A%2F%2Fstorage.googleapis.com%2Ffm-public-dev%2Fskus_v2%2FNG002%2F1.jpg&w=640&q=75",
     price: 37.4
   },
   {
-    id: 3,
+    id: id++,
     title: "Leite integral 1L",
     picture:
       "https://freshmania.com.br/_next/image?url=https%3A%2F%2Fstorage.googleapis.com%2Ffm-public-dev%2Fimg_tmp%2F3192bab6529b4435bd60f071ed90a448_f0fad34475b3454e8a2e0ecdd2a1c519.jpg&w=640&q=75",
     price: 9.86
   },
   {
-    id: 4,
+    id: id++,
     title: "Leite fermentado 1L",
     picture:
       "https://freshmania.com.br/_next/image?url=https%3A%2F%2Fstorage.googleapis.com%2Ffm-public-dev%2Fskus_v2%2FLT004%2F1.jpg&w=640&q=75",
-    price: 18.70
+    price: 18.7
   },
   {
-    id: 5,
+    id: id++,
     title: "Café com leite 500ml",
-    picture: "https://freshmania.com.br/_next/image?url=https%3A%2F%2Fstorage.googleapis.com%2Ffm-public-dev%2Fskus_v2%2FLT006%2F1.jpg&w=640&q=75",
-    price: 18.90
+    picture:
+      "https://freshmania.com.br/_next/image?url=https%3A%2F%2Fstorage.googleapis.com%2Ffm-public-dev%2Fskus_v2%2FLT006%2F1.jpg&w=640&q=75",
+    price: 18.9
   }
 ];
 
@@ -57,7 +58,7 @@ const ProductContextProvider = ({ children }: ProductContextProviderProps) => {
   const [listProducts, setListProducts] = useState<ProductType[]>(products);
 
   const addProduct = (product: ProductType) => {
-    const newProduct = { ...product, id: listProducts.length + 1 };
+    const newProduct = { ...product, id: id++ };
     setListProducts(oldValue => [newProduct, ...oldValue]);
   };
 
