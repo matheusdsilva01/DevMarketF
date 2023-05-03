@@ -33,4 +33,4 @@ export const productReducer = (
   }
 };
 
-let id = 0;
+let id = 5;

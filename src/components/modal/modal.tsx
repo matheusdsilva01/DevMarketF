@@ -24,9 +24,13 @@ interface ModalProps {
 
 const modal = ({ closeModal, modalState, onSubmit, productId }: ModalProps) => {
   const listProducts = useContext(ProductContext);
-  const [product, setProduct] = useState<ProductType>(
-    listProducts.find(el => el.id === productId) ?? ({} as ProductType)
-  );
+  const [product, setProduct] = useState<ProductType>({} as ProductType);
+
+  useEffect(() => {
+    setProduct(
+      listProducts.find(el => el.id === productId) || ({} as ProductType)
+    );
+  }, [productId]);
 
   return (
     <ModalWrapper
