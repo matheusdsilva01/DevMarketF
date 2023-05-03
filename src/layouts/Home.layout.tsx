@@ -4,7 +4,10 @@ import { toast } from "react-toastify";
 import CardProduct from "@/components/card/card";
 import Header from "@/components/header/header";
 import Modal from "@/components/modal/modal";
-import { ProductContext } from "@/context/product.context";
+import {
+  ProductContext,
+  ProductDispatchContext
+} from "@/context/product.context";
 import { ProductType } from "@/types/product";
 import AddIcon from "@mui/icons-material/Add";
 import { Popover } from "@mui/material";
@@ -19,7 +22,8 @@ const PaperStylePopover = {
 const HomeLayout = () => {
   const [modalState, setModalState] = useState(false);
   const [idProduct, setIdProduct] = useState<number>();
-  const { listProducts, addProduct, editProduct } = useContext(ProductContext);
+  const listProducts = useContext(ProductContext);
+  const dispatch = useContext(ProductDispatchContext);
 
   const openModal = (id?: number) => {
     setIdProduct(id);
@@ -32,7 +36,6 @@ const HomeLayout = () => {
   };
 
   const onSubmit = (e: FormEvent<HTMLDivElement>, product: ProductType) => {
-    console.log(product.picture);
     e.preventDefault();
 
     if (!product.picture || !product.price || product.title === "") {
@@ -40,10 +43,16 @@ const HomeLayout = () => {
     } else {
       if (product.id) {
         toast.success("Produto editado com sucesso!!!");
-        editProduct(product);
+        dispatch({
+          type: "changed",
+          product
+        });
       } else {
         toast.success("Produto criado com sucesso!!!");
-        addProduct(product);
+        dispatch({
+          type: "added",
+          product
+        });
       }
       closeModal();
       resetAllValuesInput();

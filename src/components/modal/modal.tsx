@@ -2,7 +2,6 @@ import { FormEvent, useContext, useEffect, useState } from "react";
 
 import { ProductContext } from "@/context/product.context";
 import { ProductType } from "@/types/product";
-import CancelIcon from "@mui/icons-material/Cancel";
 import { Box, InputAdornment, Modal as ModalWrapper } from "@mui/material";
 
 import {
@@ -24,14 +23,10 @@ interface ModalProps {
 }
 
 const modal = ({ closeModal, modalState, onSubmit, productId }: ModalProps) => {
-  const { listProducts } = useContext(ProductContext);
-  const [product, setProduct] = useState<ProductType>({} as ProductType);
-
-  useEffect(() => {
-    setProduct(
-      listProducts.find(el => el.id === productId) || ({} as ProductType)
-    );
-  }, [productId]);
+  const listProducts = useContext(ProductContext);
+  const [product, setProduct] = useState<ProductType>(
+    listProducts.find(el => el.id === productId) ?? ({} as ProductType)
+  );
 
   return (
     <ModalWrapper

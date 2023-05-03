@@ -1,6 +1,7 @@
 import { useContext } from "react";
+import { toast } from "react-toastify";
 
-import { ProductContext } from "@/context/product.context";
+import { ProductDispatchContext } from "@/context/product.context";
 import { ProductType } from "@/types/product";
 import { priceFormatter } from "@/util/priceFormatter";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
@@ -25,7 +26,16 @@ const CardProduct = ({
   title,
   id
 }: CardProductProps) => {
-  const { removeProduct } = useContext(ProductContext);
+  const dispatch = useContext(ProductDispatchContext);
+
+  const deleteProduct = (productId: number) => {
+    dispatch({
+      type: "deleted",
+      productId: productId
+    });
+    toast.info("Produto excluido!!!");
+  };
+
   return (
     <CardWrapper>
       <ImgProduct component="img" src={picture} />
@@ -52,7 +62,7 @@ const CardProduct = ({
           <BorderColorIcon />
         </ButtonAction>
         <ButtonAction
-          onClick={() => removeProduct(id)}
+          onClick={() => deleteProduct(id)}
           variant="text"
           disableRipple
         >

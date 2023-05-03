@@ -1,20 +1,34 @@
-import { ReactNode, createContext, useState } from "react";
-import { toast } from "react-toastify";
+import { Dispatch, ReactNode, createContext, useReducer } from "react";
 
+import {
+  productReducer,
+  productReducerProps
+} from "@/reducers/product.reducer";
 import { ProductType } from "@/types/product";
 
-type ProductContextType = {
-  listProducts: ProductType[];
-  addProduct: (product: ProductType) => void;
-  editProduct: (product: ProductType) => void;
-  removeProduct: (productId: number) => void;
-};
+type ProductContextType = ProductType[];
+type ProductDispatchType = Dispatch<productReducerProps>;
 
 type ProductContextProviderProps = {
   children: ReactNode;
 };
 export const ProductContext = createContext({} as ProductContextType);
+
+export const ProductDispatchContext = createContext({} as ProductDispatchType);
+
 let id = 0;
+
+const ProductContextProvider = ({ children }: ProductContextProviderProps) => {
+  const [listProduct, dispatch] = useReducer(productReducer, products);
+
+  return (
+    <ProductContext.Provider value={listProduct}>
+      <ProductDispatchContext.Provider value={dispatch}>
+        {children}
+      </ProductDispatchContext.Provider>
+    </ProductContext.Provider>
+  );
+};
 
 const products = [
   {
@@ -53,33 +67,5 @@ const products = [
     price: 18.9
   }
 ];
-
-const ProductContextProvider = ({ children }: ProductContextProviderProps) => {
-  const [listProducts, setListProducts] = useState<ProductType[]>(products);
-
-  const addProduct = (product: ProductType) => {
-    const newProduct = { ...product, id: id++ };
-    setListProducts(oldValue => [newProduct, ...oldValue]);
-  };
-
-  const removeProduct = (productId: number) => {
-    toast.info("Produto excluido!!!");
-    setListProducts(oldValue => oldValue.filter(el => el.id !== productId));
-  };
-
-  const editProduct = (product: ProductType) => {
-    setListProducts(oldValue =>
-      oldValue.map(el => (el.id === product.id ? product : el))
-    );
-  };
-
-  return (
-    <ProductContext.Provider
-      value={{ listProducts, addProduct, editProduct, removeProduct }}
-    >
-      {children}
-    </ProductContext.Provider>
-  );
-};
 
 export default ProductContextProvider;
